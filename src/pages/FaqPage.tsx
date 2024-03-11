@@ -69,8 +69,8 @@ export default function FAQPage() {
       </FAQItem>
 
       <FAQItem title="As Player2, I can't see Player1 weapon until the game is finished">
-        The game contract uses a [commit-reveal](https://en.wikipedia.org/wiki/Commitment_scheme) scheme. The Player1
-        chosen weapon is unknown until reveal step.
+        The game contract uses a <Link to="https://en.wikipedia.org/wiki/Commitment_scheme">commit-reveal</Link> scheme.
+        The Player1 chosen weapon is unknown until reveal step.
       </FAQItem>
 
       <FAQItem title="What is the technical stack?">
