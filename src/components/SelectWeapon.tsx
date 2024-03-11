@@ -7,7 +7,7 @@ type Props = {
 };
 export default function SelectWeapon({ onChange, value }: Props) {
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-row justify-between gap-2">
       <WeaponButton weapon={Weapon.ROCK} selected={value === Weapon.ROCK} onClick={onChange} />
       <WeaponButton weapon={Weapon.PAPER} selected={value === Weapon.PAPER} onClick={onChange} />
       <WeaponButton weapon={Weapon.SCISSORS} selected={value === Weapon.SCISSORS} onClick={onChange} />

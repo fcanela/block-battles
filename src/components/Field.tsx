@@ -11,7 +11,7 @@ type Props = {
 export default function Field({ label, children, className, errors }: Props) {
   return (
     <div className={clsx('flex flex-col', className)}>
-      <label className="mb-2">{label}</label>
+      <label className="mb-2 font-bold text-indigo-700">{label}</label>
       {children}
       {errors && (
         <div className="flex items-center justify-between mt-2 text-red-700">

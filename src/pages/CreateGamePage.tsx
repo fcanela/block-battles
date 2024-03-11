@@ -46,16 +46,31 @@ export default function CreateGamePage() {
 
   return (
     <div className="flex items-center w-full flex-col justify-center h-full">
-      <form onSubmit={handleSubmit(connectable(onSubmit))} className="flex flex-col">
-        <div className="flex gap-2">
-          <Field className="w-3/4" label="Opponent" errors={errors.p2}>
-            <input type="text" {...register('p2')} />
-          </Field>
+      <form onSubmit={handleSubmit(connectable(onSubmit))} className="flex flex-col gap-2">
+        <Field className="" label="Opponent" errors={errors.p2}>
+          <input
+            type="text"
+            className="p-4 outline-indigo-700 font-mono text-lg"
+            {...register('p2')}
+            minLength={40}
+            maxLength={40}
+          />
+        </Field>
 
-          <Field className="w-1/4" label="Stake in ETH" errors={errors.stake}>
-            <input type="number" min={0.001} step={0.001} {...register('stake')} />
-          </Field>
-        </div>
+        <Field className="" label="Stake" errors={errors.stake}>
+          <div className="flex w-full">
+            <div className="flex items-center justify-center bg-indigo-700 px-4 z-20">
+              <div className="text-white">SepoliaETH</div>
+            </div>
+            <input
+              type="number"
+              className="p-4 outline-indigo-700 text-lg flex-1"
+              min={0.001}
+              step={0.001}
+              {...register('stake')}
+            />
+          </div>
+        </Field>
         <Field className="flex flex-col my-4" label="Weapon" errors={errors.p1Weapon}>
           <Controller
             name="p1Weapon"

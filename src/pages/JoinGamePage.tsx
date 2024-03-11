@@ -39,9 +39,18 @@ export default function JoinGamePage() {
 
   return (
     <article className="flex flex-col w-full items-center justify-center max-w-screen-md gap-16">
-      <form onSubmit={handleSubmit(connectable(onSubmit))} className="flex flex-col items-center justify-center w-full">
+      <form
+        onSubmit={handleSubmit(connectable(onSubmit))}
+        className="flex flex-col items-center justify-center w-full gap-4"
+      >
         <Field label="Game creator transaction hash" errors={errors.contractTransaction} className="w-full">
-          <input className="w-full" type="text" {...register('contractTransaction')} />
+          <input
+            className="w-full p-4 outline-indigo-700 font-mono"
+            minLength={66}
+            maxLength={66}
+            type="text"
+            {...register('contractTransaction')}
+          />
         </Field>
         <Button type="submit" variant="primary">
           Join
