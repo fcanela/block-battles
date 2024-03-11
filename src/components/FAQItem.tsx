@@ -18,7 +18,7 @@ export default function FAQItem({ title, children }: FaqItemProps) {
         </div>
         <h3 className="font-bold font-xl">{title}</h3>
       </div>
-      <div>{isExpanded && children}</div>
+      <div className="leading-loose">{isExpanded && children}</div>
     </section>
   );
 }
