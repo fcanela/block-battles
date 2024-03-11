@@ -1,9 +1,9 @@
-# Bock Battles
+# [Block Battles](https://block-battles.netlify.app/)
 
 > On-chain Rock, Paper, Scissors, Lizard, Spock bets
 
 Two players DApp to play the extended version of the Rock, Paper, Scissors game,
-with betting.
+with betting. There is a deployed version at [https://block-battles.netlify.app/](https://block-battles.netlify.app/)
 
 ## Features
 
