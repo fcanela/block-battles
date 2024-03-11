@@ -3,7 +3,7 @@ import FAQItem from '../components/FAQItem';
 
 export default function FAQPage() {
   return (
-    <article className="flex flex-col">
+    <article className="flex flex-col w-full max-w-screen-sm">
       <FAQItem title="The transaction is mined but it takes a while to reflect in the UI">
         Our providers take some time to provide a succesful answer for some operations. There are two main slow
         operations:
@@ -68,10 +68,9 @@ export default function FAQPage() {
         </p>
       </FAQItem>
 
-      <FAQItem title="As Player2, I can't see Player1 weapon">
-        Not implemented yet. I could have search the P1 reveal transaction in the blocks previous to the rewards
-        transactions, but I already implemented things out of scope and have other tasks to close. You can know if you
-        won, lost or draw though.
+      <FAQItem title="As Player2, I can't see Player1 weapon until the game is finished">
+        The game contract uses a [commit-reveal](https://en.wikipedia.org/wiki/Commitment_scheme) scheme. The Player1
+        chosen weapon is unknown until reveal step.
       </FAQItem>
 
       <FAQItem title="What is the technical stack?">
