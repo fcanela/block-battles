@@ -5,6 +5,9 @@
 Two players DApp to play the extended version of the Rock, Paper, Scissors game,
 with betting. There is a deployed version at [https://block-battles.netlify.app/](https://block-battles.netlify.app/)
 
+There is a [technical overview document](./docs/technical-overview.md) available
+as quick introduction to the codebase.
+
 ## Features
 
 - **Bet a decentralized manner**. Deploys a game smart contract for both side
@@ -17,9 +20,8 @@ with betting. There is a deployed version at [https://block-battles.netlify.app/
 - **Use multiple accounts.** Keep track of your games between different
   accounts. Games are persisted locally per connected account, with automatic
   switching.
-- **Best-effort resolution of winner.** Given the event-less nature of the game
-  contract, it tries the best to resolve the game outcome by inspecting the
-  internal transactions with Etherscan API.
+- **Winner resolution.** Uses Etherscan API to resolve the game choices and
+  outcomes in all scenarios.
 - **HTTPS only**. Served via Netlify, which uses HSTS to force SSL connections
   and reduces the ability of attackers to inject malicious code that
   compromises fair game.
