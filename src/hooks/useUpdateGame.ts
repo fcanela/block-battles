@@ -1,25 +1,16 @@
 import { useDispatch } from 'react-redux';
-import { getAddress, type Hash } from 'viem';
+import { type Hash } from 'viem';
 import { useConfig } from 'wagmi';
 import { getPublicClient, readContracts } from 'wagmi/actions';
 import { GameResult } from '../constants/game_result';
 import { Stage } from '../constants/stages';
 import { abi } from '../contracts/rps';
-import { getInternalTransactions, type RawTransaction } from '../libs/etherscan';
 import { Events, notify } from '../libs/notify';
 import { parseSolidityDate } from '../libs/time';
 import { store } from '../providers/AccountStoreProvider';
-import { contractDeployed, contractVariablesRead, gameFinished, GameState, stageChanged } from '../store/gamesSlice';
-import useReadP1SolveInputs from './useReadP1SolveInputs';
+import { contractDeployed, contractVariablesRead, gameFinished, stageChanged } from '../store/gamesSlice';
+import useCheckGameEnd from './useCheckGameEnd';
 import useValidateContract from './useValidateContract';
-
-const computeGameResult = (internalTxs: RawTransaction[], game: GameState) => {
-  if (internalTxs.length === 2) return GameResult.DRAW;
-
-  const to = getAddress(internalTxs[0].to);
-  if (game.p1 === to) return GameResult.P1_WINS;
-  return GameResult.P2_WINS;
-};
 
 /**
  * Provides a function that checks the current situation of the game and updates the Redux state
@@ -36,7 +27,7 @@ export const useUpdateGame = () => {
   const dispatch = useDispatch();
   const config = useConfig();
   const validateContract = useValidateContract();
-  const getP1SolveInputs = useReadP1SolveInputs();
+  const checkGameEnd = useCheckGameEnd();
 
   return async (contractTransaction: Hash) => {
     const games = store.getState().games;
@@ -47,7 +38,7 @@ export const useUpdateGame = () => {
     const publicClient = getPublicClient(config);
     if (!publicClient) return notify(Events.GENERIC_ERROR, contractTransaction);
 
-    let { contractAddress } = game;
+    let { contractAddress, startingBlock } = game;
     if (!contractAddress) {
       const validation = await validateContract(contractTransaction);
       if (!validation) return;
@@ -62,11 +53,13 @@ export const useUpdateGame = () => {
       }
 
       contractAddress = validation.contractAddress;
+      startingBlock = validation.startingBlock.toString();
       notify(Events.GAME_START, contractTransaction);
       dispatch(
         contractDeployed({
           contractTransaction,
-          contractAddress: validation.contractAddress,
+          contractAddress,
+          startingBlock,
         }),
       );
     }
@@ -97,34 +90,35 @@ export const useUpdateGame = () => {
       }),
     );
 
-    if (storedValueRaw < BigInt(game.stake)) {
-      dispatch(
-        stageChanged({
-          contractTransaction,
-          stage: Stage.WAITING_RESULT,
-        }),
-      );
-
-      const internalTxs = await getInternalTransactions(contractAddress);
-
-      // Etherscan takes a while sometimes
-      if (!internalTxs) return;
-      const gameResult = computeGameResult(internalTxs, game);
-
-      let solveInputs;
-      if (!game.p1Weapon) {
-        solveInputs = await getP1SolveInputs(game);
-        if (!solveInputs) return;
+    const stake = BigInt(game.stake);
+    // In games with stakes, the end can be detected by a distribution
+    // of funds. On games without stakes, we need to check always
+    if (storedValueRaw < stake || stake === 0n) {
+      // In games with stakes, we can advance that the game is finished even
+      // if Etherscan haven't indexed the transaction yet
+      if (stake !== 0n) {
+        dispatch(
+          stageChanged({
+            contractTransaction,
+            stage: Stage.WAITING_RESULT,
+          }),
+        );
       }
 
-      notify(Events.GAME_END, contractTransaction);
-      return dispatch(
-        gameFinished({
-          contractTransaction,
-          result: gameResult,
-          ...(solveInputs || {}),
-        }),
-      );
+      const resolvedResult = await checkGameEnd(contractTransaction);
+      if (resolvedResult) {
+        const { result, p1Weapon, nonce } = resolvedResult;
+
+        notify(Events.GAME_END, contractTransaction);
+        return dispatch(
+          gameFinished({
+            contractTransaction,
+            result,
+            p1Weapon,
+            nonce,
+          }),
+        );
+      }
     }
 
     const nextStage = p2Weapon ? Stage.P2_MOVED : Stage.STARTED;

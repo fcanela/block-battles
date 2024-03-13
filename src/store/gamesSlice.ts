@@ -20,6 +20,7 @@ export type GameState = {
   p2Weapon?: Weapon;
   nonce?: string;
   contractAddress?: Hash;
+  startingBlock?: string;
   stake: string;
   storedValue?: string;
   result?: GameResult;
@@ -47,6 +48,7 @@ export type GameStartedPayload = ContractTransactionPayload & {
 
 export type ContractDeployedPayload = ContractTransactionPayload & {
   contractAddress: Hash;
+  startingBlock: string;
 };
 
 export type P2MoveSentPayload = ContractTransactionPayload & {
@@ -145,8 +147,10 @@ export const gamesSlice = createSlice({
       return state;
     },
     contractDeployed: (state, action: PayloadAction<ContractDeployedPayload>) => {
-      const game = state[action.payload.contractTransaction];
-      game.contractAddress = action.payload.contractAddress;
+      const { contractTransaction, contractAddress, startingBlock } = action.payload;
+      const game = state[contractTransaction];
+      game.contractAddress = contractAddress;
+      game.startingBlock = startingBlock;
       return state;
     },
     gameFinished: (state, action: PayloadAction<GameFinishedPayload>) => {

@@ -34,8 +34,9 @@ export default function useValidateContract() {
     }
 
     const contractAddress = getAddress(receipt.contractAddress as Hash);
+    const startingBlock = receipt.blockNumber;
     const isValid = await checkCorrectContract(contractAddress);
 
-    return { contractAddress, isValid };
+    return { isValid, contractAddress, startingBlock };
   };
 }

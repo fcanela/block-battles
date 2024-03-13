@@ -20,7 +20,7 @@ export default function CreateGamePage() {
       .string()
       .regex(ethereumAddressRegex, 'Invalid Ethereum address')
       .regex(new RegExp(`(?!^${myAddress}$)`), 'Playing with yourself may be good, but playing with others is better'),
-    stake: z.coerce.number().positive(),
+    stake: z.coerce.number().gte(0),
     p1Weapon: z.nativeEnum(Weapon),
   });
 
@@ -33,6 +33,9 @@ export default function CreateGamePage() {
     formState: { errors },
   } = useForm<CreateGameForm>({
     resolver: zodResolver(createGameFormSchema),
+    defaultValues: {
+      stake: 0.0001,
+    },
   });
   const createGame = useCreateGame();
   const navigate = useNavigate();
@@ -52,8 +55,8 @@ export default function CreateGamePage() {
             type="text"
             className="p-4 outline-indigo-700 font-mono text-lg"
             {...register('p2')}
-            minLength={40}
-            maxLength={40}
+            minLength={42}
+            maxLength={42}
           />
         </Field>
 
@@ -65,8 +68,8 @@ export default function CreateGamePage() {
             <input
               type="number"
               className="p-4 outline-indigo-700 text-lg flex-1"
-              min={0.001}
-              step={0.001}
+              min={0.0}
+              step={0.000001}
               {...register('stake')}
             />
           </div>
