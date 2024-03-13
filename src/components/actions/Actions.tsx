@@ -2,7 +2,6 @@ import { GameState } from '../../store/gamesSlice';
 import RefreshAction from './RefreshAction';
 import RevealAction from './RevealAction';
 import MoveAsP2Action from './MoveAsP2Action';
-import ShareLink from './ShareLink';
 import ClaimTimeoutAction from './ClaimTimeoutAction';
 import DeleteGameAction from './DeleteGameAction';
 
@@ -16,7 +15,6 @@ export default function Actions({ game }: Props) {
     <div className="flex flex-row w-full gap-10 justify-between">
       <RefreshAction game={game} />
       <ClaimTimeoutAction game={game} />
-      <ShareLink game={game} />
       <RevealAction game={game} />
       <MoveAsP2Action game={game} />
       <DeleteGameAction game={game} />

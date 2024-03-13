@@ -51,10 +51,10 @@ export default function GameCard({ game, variant = 'full' }: Props) {
         {isFull && (
           <div className="flex h-1/3 justify-around items-end w-full">
             <div>
-              Contract transaction: <EtherscanLink type="tx" value={game.contractTransaction} />
+              Creator transaction: <EtherscanLink type="tx" value={game.contractTransaction} />
             </div>
             <div>
-              Address: <EtherscanLink type="address" value={game.contractAddress} />
+              Contract address: <EtherscanLink type="address" value={game.contractAddress} />
             </div>
           </div>
         )}

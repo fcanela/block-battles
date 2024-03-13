@@ -61,7 +61,13 @@ export default function GameCardSide({ game, side, variant }: Props) {
           </span>
         )}
       </div>
-      <div className="">{isFull && side === Player.P1 && game.nonce && <span>Nonce: {game.nonce}</span>}</div>
+      <div className="">
+        {isFull && side === Player.P1 && game.nonce && (
+          <span>
+            Nonce: <span className="font-mono">{game.nonce}</span>
+          </span>
+        )}
+      </div>
     </div>
   );
 }

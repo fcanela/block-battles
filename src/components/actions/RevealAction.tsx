@@ -4,7 +4,7 @@ import useConnectable from '../../hooks/useConnectable';
 import { useRevealAsP1 } from '../../hooks/useRevealAsP1';
 import { GameState } from '../../store/gamesSlice';
 import Button from '../Button';
-import ActionCard from './ActionCard';
+import ActionCard from '../ActionCard';
 
 type Props = {
   game: GameState;

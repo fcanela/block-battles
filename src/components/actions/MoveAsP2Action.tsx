@@ -7,7 +7,7 @@ import { usePlayAsP2 } from '../../hooks/usePlayAsP2';
 import { GameState } from '../../store/gamesSlice';
 import Button from '../Button';
 import SelectWeapon from '../SelectWeapon';
-import ActionCard from './ActionCard';
+import ActionCard from '../ActionCard';
 import useConnectable from '../../hooks/useConnectable';
 
 type Props = {

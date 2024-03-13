@@ -43,7 +43,11 @@ export default function JoinGamePage() {
         onSubmit={handleSubmit(connectable(onSubmit))}
         className="flex flex-col items-center justify-center w-full gap-4"
       >
-        <Field label="Game creator transaction hash" errors={errors.contractTransaction} className="w-full">
+        <Field
+          label="ID (or transaction hash of the contract creation)"
+          errors={errors.contractTransaction}
+          className="w-full"
+        >
           <input
             className="w-full p-4 outline-indigo-700 font-mono"
             minLength={66}
@@ -56,9 +60,8 @@ export default function JoinGamePage() {
           Join
         </Button>
       </form>
-      <div className="text-center">
-        Ask your opponent to provide you URL to join the game or the transaction hash that created the game smart
-        contract.
+      <div className="text-center text-sm">
+        Ask your opponent to provide you the join game URL or the transaction hash that created the game contract.
       </div>
     </article>
   );

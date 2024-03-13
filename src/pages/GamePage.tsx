@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import GameCard from '../components/GameCard';
 import Actions from '../components/actions/Actions';
 import { useAppSelector } from '../hooks/useAppSelector';
+import ShareGame from '../components/ShareGame';
 
 export default function GamePage() {
   const { contractTransaction } = useParams();
@@ -30,6 +31,7 @@ export default function GamePage() {
         <Actions game={game} />
       </div>
       <GameCard game={game} />
+      <ShareGame game={game} />
     </article>
   );
 }

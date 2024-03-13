@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function EtherscanLink({ value, type = 'address' }: Props) {
-  if (!value) return null;
+  if (!value) return <span className="font-mono">Unknown</span>;
 
   const url = `https://sepolia.etherscan.io/${type}/${value}`;
 

@@ -5,7 +5,7 @@ import { useP2MoveTimeout } from '../../hooks/useP2MoveTimeout';
 import { getGameTimeoutState } from '../../libs/time';
 import { GameState } from '../../store/gamesSlice';
 import Button from '../Button';
-import ActionCard from './ActionCard';
+import ActionCard from '../ActionCard';
 
 type Props = {
   game: GameState;

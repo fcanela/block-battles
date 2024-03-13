@@ -5,7 +5,7 @@ import { Stage } from '../../constants/stages';
 import { useUpdateGame } from '../../hooks/useUpdateGame';
 import { GameState } from '../../store/gamesSlice';
 import Button from '../Button';
-import ActionCard from './ActionCard';
+import ActionCard from '../ActionCard';
 
 type Props = {
   game: GameState;
