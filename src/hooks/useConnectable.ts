@@ -33,6 +33,6 @@ export default function useConnectable() {
       if (!chain) return openChainModal!();
 
       // If everything is alright, proceed
-      fn(...args);
+      return fn(...args);
     };
 }
