@@ -5,30 +5,21 @@
 Two players DApp to play the extended version of the Rock, Paper, Scissors game,
 with betting. There is a deployed version at [https://block-battles.netlify.app/](https://block-battles.netlify.app/)
 
-There is a [technical overview document](./docs/technical-overview.md) available
-as quick introduction to the codebase.
+A [technical overview document](./docs/technical-overview.md) provides a quick introduction to the codebase.
 
 ## Features
 
-- **Bet a decentralized manner**. Deploys a game smart contract for both side
-  to interact.
+- **Bet a decentralized manner**. Deploys a game smart contract for both sides to interact.
 - **Create a new game or join an existing one.**
-- **Validated contract interactions**. Verifies the authenticity of the
-  contract to ensure you are joining a fair and legit game. Uses the
-  bytecode when available and Etherscan verified contract source code as fallback.
+- **Validated contract interactions**. Verifies the contract's authenticity to ensure you join a fair and legitimate game. Uses the bytecode when available ~and Etherscan verified contract source code as fallback~
+  (no longer valid; I disabled the injected provider, which was using light nodes, and now it relies only on bytecode, which is more robust).
 - **Play multiple games at the same time.**
 - **Use multiple accounts.** Keep track of your games between different
-  accounts. Games are persisted locally per connected account, with automatic
-  switching.
-- **Winner resolution.** Uses Etherscan API to resolve the game choices and
-  outcomes in all scenarios.
-- **HTTPS only**. Served via Netlify, which uses HSTS to force SSL connections
-  and reduces the ability of attackers to inject malicious code that
-  compromises fair game.
-- **Secure nonce generation.** Uses `crypto.getRandomValues` as generator.
-- **Multiple providers.**. Uses your wallet, Infura, Alchemy and ANKR
-  providers. You should not lose your bet just because an apocalypse
-  resulted in three providers being down.
+  accounts. Games are persisted locally per connected account, with automatic switching.
+- **Winner resolution.** Uses Etherscan API to resolve all scenarios' game choices and outcomes.
+- ** HTTPS only **. It is served via Netlify, which uses HSTS to force SSL connections and reduces attackers' ability to inject malicious code that compromises fair game.
+- **Secure nonce generation.** Uses `crypto.getRandomValues` as the generator.
+- **Multiple providers.**. Uses Infura, Alchemy, and ANKR providers. You should not lose your bet just because an apocalypse resulted in two providers being down.
 
 ## Installation
 
@@ -49,4 +40,4 @@ as quick introduction to the codebase.
 
 ## License
 
-MIT. Attribution to third parties present in application FAQ section.
+MIT. Attribution to third parties is present in the application FAQ section.

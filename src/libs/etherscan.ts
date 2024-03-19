@@ -3,13 +3,6 @@ import type { Hash, Hex } from 'viem';
 const BASE_API_URL = 'https://api-sepolia.etherscan.io/api';
 const API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY;
 
-export const getVerifiedContractSource = async (contractAddress: Hash) => {
-  const url = `${BASE_API_URL}?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
-  const response = await fetch(url).then(r => r.json());
-  if (response.message !== 'OK') throw new Error('Something went wrong');
-  return response.result[0].SourceCode;
-};
-
 export type RawTransaction = {
   blockNumber: bigint;
   hash: Hash;

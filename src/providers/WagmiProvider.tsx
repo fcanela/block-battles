@@ -1,7 +1,6 @@
-import { WagmiProvider as BaseWagmiProvider, fallback, http, unstable_connector } from 'wagmi';
+import { WagmiProvider as BaseWagmiProvider, fallback, http } from 'wagmi';
 import { sepolia } from 'wagmi/chains';
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import { injected } from 'wagmi/connectors';
 import type { HttpTransport } from 'viem';
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
@@ -34,7 +33,7 @@ export const config = getDefaultConfig({
   projectId,
   chains: [sepolia],
   transports: {
-    [sepolia.id]: fallback([unstable_connector(injected), ...transports]),
+    [sepolia.id]: fallback(transports),
   },
 });
 
