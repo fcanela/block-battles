@@ -33,6 +33,6 @@ export const useDeleteGame = (contractTransaction: Hash) => {
 
     dispatch(gameDeleted({ contractTransaction }));
     notify(Events.GAME_DELETED, contractTransaction);
-    navigate('/');
+    navigate('/games');
   };
 };
