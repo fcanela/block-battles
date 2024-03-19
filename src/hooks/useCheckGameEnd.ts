@@ -87,7 +87,7 @@ export default function useCheckGameEnd() {
     if (lastTx.methodId !== endingFnSelectorsMap.SOLVE) {
       return {
         // and the winner is whoever called the timeout
-        result: from === game.p1 ? GameResult.P1_WINS : GameResult.P2_WINS,
+        result: from === getAddress(game.p1) ? GameResult.P1_WINS : GameResult.P2_WINS,
       };
     }
 
